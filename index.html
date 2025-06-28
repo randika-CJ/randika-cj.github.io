@@ -198,6 +198,250 @@
         }
 
         /* About Section */
+
+        .about-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(15, 15, 35, 0.9), rgba(26, 26, 46, 0.9));
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Floating particles */
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 153, 204, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3)); }
+            to { filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.6)); }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-card {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .profile-card:hover {
+            transform: rotateY(5deg) rotateX(5deg);
+        }
+
+        .profile-image-container {
+            position: relative;
+            border-radius: 25px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            padding: 4px;
+            box-shadow: 
+                0 20px 40px rgba(0, 212, 255, 0.2),
+                0 0 30px rgba(0, 212, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .profile-image {
+            width: 100%;
+            height: auto;
+            border-radius: 21px;
+            display: block;
+            filter: brightness(1.1) contrast(1.1);
+            transition: filter 0.3s ease;
+        }
+
+        .profile-image:hover {
+            filter: brightness(1.2) contrast(1.2);
+        }
+
+        .content-area {
+            space-y: 40px;
+        }
+
+        .main-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #00d4ff;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .main-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border-radius: 2px;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+        }
+
+        .highlight-text {
+            color: #00d4ff;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .tech-focus {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid #00d4ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .tech-focus::before {
+            content: '💡';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .about-title {
+                font-size: 2.5rem;
+            }
+            
+            .main-heading {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+        
         .about {
             padding: 6rem 0;
             background: var(--bg-secondary);
@@ -683,7 +927,7 @@
     <!-- Header -->
     <header>
         <nav class="container">
-            <div class="logo">Randika Prabashwara</div>
+            <div class="logo">Randika Prabashwara - Portfolio</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -706,7 +950,7 @@
                     Specializing in computer vision, machine learning, and building scalable AI systems.
                 </p>
                 <div class="cta-buttons">
-                    <a href="#projects" class="btn btn-primary">
+                    <a href="#featured-projects" class="btn btn-primary">
                         <i class="fas fa-rocket"></i>
                         Explore My Work
                     </a>
@@ -720,45 +964,52 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about section">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <p class="section-subtitle">Data Science Engineer | Machine Learning Enthusiast | Computer Vision Specialist</p>
+    <section class="about-section">
+    <div class="about-header">
+        <h1 class="about-title">About Me</h1>
+        <p class="subtitle">Data Science Engineer | Machine Learning Enthusiast | Computer Vision Specialist</p>
+    </div>
+
+    <div class="about-content">
+        <div class="profile-card">
+            <div class="profile-image-container">
+                <img src="https://via.placeholder.com/400x500/1a1a2e/00d4ff?text=Your+Photo" alt="Randika Prabashwara" class="profile-image">
+            </div>
+        </div>
+
+        <div class="content-area">
+            <h2 class="main-heading">Building AI Solutions for Tomorrow</h2>
             
-            <div class="about-grid">
-                <div class="about-image">
-                    <img src="randika_web.jpg" alt="Randika Prabashwara - Profile Photo" class="profile-photo">
+            <p class="description">
+                I'm a final-year <span class="highlight-text">Computer Science & Engineering</span> student at the University of Moratuwa, 
+                specializing in Data Science & Engineering. With a passion for artificial intelligence and machine 
+                learning, I focus on developing innovative solutions that address real-world challenges.
+            </p>
+
+            <div class="tech-focus">
+                <p class="description">
+                    My research interests include <span class="highlight-text">computer vision, super-resolution techniques, and scalable 
+                    machine learning systems</span>. I believe in the power of data-driven insights to transform industries 
+                    and improve lives.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">15+</span>
+                    <div class="stat-label">Projects Completed</div>
                 </div>
-                <div class="about-content">
-                    <h3>Building AI Solutions for Tomorrow</h3>
-                    <p>
-                        I'm a final-year Computer Science & Engineering student at the University of Moratuwa, 
-                        specializing in Data Science & Engineering. With a passion for artificial intelligence 
-                        and machine learning, I focus on developing innovative solutions that address real-world challenges.
-                    </p>
-                    <p>
-                        My research interests include computer vision, super-resolution techniques, and scalable 
-                        machine learning systems. I believe in the power of data-driven insights to transform 
-                        industries and improve lives.
-                    </p>
-                    
-                    <div class="stats">
-                        <div class="stat-item">
-                            <span class="stat-number">15+</span>
-                            <span class="stat-label">Projects Completed</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">Top 83%</span>
-                            <span class="stat-label">Kaggle Ranking</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">5+</span>
-                            <span class="stat-label">Research Papers</span>
-                        </div>
-                    </div>
+                <div class="stat-card">
+                    <span class="stat-number">Top 83%</span>
+                    <div class="stat-label">Kaggle Ranking</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">5+</span>
+                    <div class="stat-label">Research Papers</div>
                 </div>
             </div>
         </div>
+    </div>
     </section>
 
     <!-- Projects Section -->
