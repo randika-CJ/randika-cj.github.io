@@ -218,6 +218,29 @@
            box-shadow: 0 10px 25px rgba(88, 166, 255, 0.3);
         }
 
+        /* Wave emoji styling - keeps original color */
+        .wave {
+           background: none !important;
+           -webkit-background-clip: unset !important;
+           -webkit-text-fill-color: unset !important;
+           background-clip: unset !important;
+           color: initial !important;
+           display: inline-block;
+           animation: wave-animation 2s ease-in-out infinite;
+        }
+        
+        @keyframes wave-animation {
+           0% { transform: rotate(0deg); }
+           10% { transform: rotate(14deg); }
+           20% { transform: rotate(-8deg); }
+           30% { transform: rotate(14deg); }
+           40% { transform: rotate(-4deg); }
+           50% { transform: rotate(10deg); }
+           60% { transform: rotate(0deg); }
+           100% { transform: rotate(0deg); }
+        }
+
+        
         /* About Section */
         .about {
             padding: 6rem 0;
