@@ -221,23 +221,30 @@
         /* Wave emoji styling - keeps original color */
         .wave {
            background: none !important;
-           -webkit-background-clip: unset !important;
-           -webkit-text-fill-color: unset !important;
-           background-clip: unset !important;
-           color: initial !important;
+           background-image: none !important;
+           -webkit-background-clip: initial !important;
+           -webkit-text-fill-color: initial !important;
+           background-clip: initial !important;
+           color: inherit !important;
            display: inline-block;
+           position: relative;
+           z-index: 1;
            animation: wave-animation 2s ease-in-out infinite;
         }
         
-        @keyframes wave-animation {
-           0% { transform: rotate(0deg); }
-           10% { transform: rotate(14deg); }
-           20% { transform: rotate(-8deg); }
-           30% { transform: rotate(14deg); }
-           40% { transform: rotate(-4deg); }
-           50% { transform: rotate(10deg); }
-           60% { transform: rotate(0deg); }
-           100% { transform: rotate(0deg); }
+        /* Alternative approach - force the emoji to be visible */
+        .wave::before {
+           content: "👋";
+           position: absolute;
+           top: 0;
+           left: 0;
+           color: #FFD700;
+           z-index: 2;
+        }
+        
+        .wave {
+           color: transparent;
+           position: relative;
         }
 
         
