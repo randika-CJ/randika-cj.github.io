@@ -27,6 +27,20 @@
             --gradient-secondary: linear-gradient(135deg, #FF6B6B 0%, #58A6FF 100%);
         }
 
+        /* Light theme variables */
+        :root.light-theme {
+            --primary-color: #0366D6;
+            --secondary-color: #E3316E;
+            --accent-color: #28A2A2;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F9FAFB;
+            --bg-tertiary: #F3F4F6;
+            --border-color: #E5E7EB;
+            --gradient-primary: linear-gradient(135deg, #0366D6 0%, #28A2A2 100%);
+            --gradient-secondary: linear-gradient(135deg, #E3316E 0%, #0366D6 100%);
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-primary);
@@ -51,6 +65,11 @@
             width: 100%;
             z-index: 1000;
             transition: all 0.3s ease;
+        }
+
+        /* Light theme header */
+        :root.light-theme header {
+            background: rgba(255, 255, 255, 0.95);
         }
 
         nav {
@@ -102,6 +121,82 @@
             width: 100%;
         }
 
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(88, 166, 255, 0.3);
+        }
+
+        .theme-toggle i {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(180deg);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(100px);
+            box-shadow: 0 4px 20px rgba(88, 166, 255, 0.3);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 30px rgba(88, 166, 255, 0.5);
+        }
+
+        .scroll-to-top i {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .scroll-to-top:hover i {
+            transform: translateY(-2px);
+        }
+
         /* Hero Section */
         .hero {
            min-height: 100vh;
@@ -113,6 +208,12 @@
            position: relative;
            overflow: hidden;
         }
+
+        /* Light theme hero adjustments */
+        :root.light-theme .hero {
+            background: radial-gradient(circle at 50% 50%, rgba(3, 102, 214, 0.05) 0%, transparent 50%);
+        }
+            
         .hero::before {
            content: '';
            position: absolute;
@@ -1438,6 +1539,12 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Theme transition for all elements */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+            
     </style>
 </head>
 <body>
@@ -1452,9 +1559,20 @@
                 <li><a href="#all-projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-sun" id="themeIcon"></i>
+                        <span id="themeText">Light</span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
+
+     <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
