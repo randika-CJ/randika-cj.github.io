@@ -1589,11 +1589,23 @@
             background: none;
             border: none;
         }
-        
+
+        /*
         .hamburger span {
             width: 25px;
             height: 3px;
-            background: currentColor;
+            /* background: currentColor; */
+            background: rgba(255, 255, 255, 0.8); /* Changed from currentColor */
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+        */
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-color, #ffffff);
+            opacity: 0.9; /* Slightly transparent */
             margin: 3px 0;
             transition: 0.3s;
             border-radius: 2px;
@@ -3292,12 +3304,14 @@
                 hamburger.classList.toggle('active');
                 navLinks.classList.toggle('active');
                 
+                /*
                 // Prevent body scroll when menu is open
                 if (navLinks.classList.contains('active')) {
                     document.body.style.overflow = 'hidden';
                 } else {
                     document.body.style.overflow = 'auto';
                 }
+                */
             }
         }
         
