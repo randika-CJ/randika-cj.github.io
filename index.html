@@ -1400,6 +1400,125 @@
                 text-align: center;
             }
         }
+
+        /* Pagination Styles for project section*/
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .pagination-info {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .pagination-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            background: rgba(88, 166, 255, 0.2);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(88, 166, 255, 0.3);
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .pagination-numbers {
+            display: flex;
+            gap: 0.25rem;
+            margin: 0 0.5rem;
+        }
+        
+        .page-number {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .page-number:hover {
+            background: rgba(88, 166, 255, 0.2);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .page-number.active {
+            background: linear-gradient(135deg, var(--primary-color), #4ECDC4);
+            border-color: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(88, 166, 255, 0.4);
+        }
+        
+        .page-ellipsis {
+            color: var(--text-secondary);
+            padding: 0 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Responsive pagination */
+        @media (max-width: 768px) {
+            .pagination-container {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            
+            .pagination-controls {
+                justify-content: center;
+            }
+            
+            .pagination-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .page-number {
+                width: 35px;
+                height: 35px;
+            }
+        }
         
         /* Skills Section */
         .skills {
@@ -2114,6 +2233,38 @@
             <div class="all-projects-grid" id="allProjectsGrid">
                 <!-- Project cards will be dynamically inserted here -->
             </div>
+
+            <!-- Add this pagination section right after the projects grid div -->
+            <div class="pagination-container">
+                <div class="pagination-info">
+                    <span id="paginationInfo">Showing 1-2 of 15 projects</span>
+                </div>
+                <div class="pagination-controls">
+                    <button class="pagination-btn" id="firstBtn" disabled>
+                        <i class="fas fa-angle-double-left"></i>
+                        First
+                    </button>
+                    <button class="pagination-btn" id="prevBtn" disabled>
+                        <i class="fas fa-angle-left"></i>
+                        Previous
+                    </button>
+                    
+                    <div class="pagination-numbers" id="paginationNumbers">
+                        <!-- Page numbers will be dynamically inserted here -->
+                    </div>
+                    
+                    <button class="pagination-btn" id="nextBtn">
+                        Next
+                        <i class="fas fa-angle-right"></i>
+                    </button>
+                    <button class="pagination-btn" id="lastBtn">
+                        Last
+                        <i class="fas fa-angle-double-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            
         </div>
     </section>
 
@@ -2850,12 +3001,24 @@
         }
         
         // Initialize all projects with enhanced features
+        // Add at the top of your JS file
+        let currentPage = 1;
+        let projectsPerPage = 2;
+        let filteredProjects = [];
+        let totalPages = 1;
+
         function initializeAllProjects() {
             const projectsGrid = document.getElementById('allProjectsGrid');
             if (!projectsGrid) return;
             
-            const projectsHTML = allProjectsData.map(project => generateProjectCard(project)).join('');
-            projectsGrid.innerHTML = projectsHTML;
+            // Initialize filtered projects with all projects
+            filteredProjects = [...allProjectsData];
+            
+            // Initialize pagination
+            initializePagination();
+            
+            // Display first page
+            displayProjectsPage(1);
             
             // Add enhanced filter functionality with animations
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -2888,7 +3051,7 @@
             
             // Add project card hover effects
             addProjectCardEffects();
-        }
+}
         
         // Enhanced filter with staggered animations
         function filterProjectsWithAnimation(category) {
@@ -2911,6 +3074,9 @@
                     }, 300);
                 }
             });
+            setTimeout(() => {
+                filterProjectsWithPagination(category);
+            }, 350);
         }
         
         // Enhanced search with animations
@@ -2939,7 +3105,184 @@
                     }, 300);
                 }
             });
+            setTimeout(() => {
+                searchProjectsWithPagination(query);
+            }, 350);
         }
+
+        // Initialize pagination controls
+        function initializePagination() {
+            const firstBtn = document.getElementById('firstBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const lastBtn = document.getElementById('lastBtn');
+            
+            if (!firstBtn || !prevBtn || !nextBtn || !lastBtn) return;
+            
+            firstBtn.addEventListener('click', () => goToPage(1));
+            prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+            nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+            lastBtn.addEventListener('click', () => goToPage(totalPages));
+        }
+        
+        // Display projects for a specific page
+        function displayProjectsPage(page) {
+            currentPage = page;
+            totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
+            
+            const startIndex = (page - 1) * projectsPerPage;
+            const endIndex = startIndex + projectsPerPage;
+            const projectsToShow = filteredProjects.slice(startIndex, endIndex);
+            
+            const projectsGrid = document.getElementById('allProjectsGrid');
+            const projectsHTML = projectsToShow.map(project => generateProjectCard(project)).join('');
+            projectsGrid.innerHTML = projectsHTML;
+            
+            // Update pagination controls
+            updatePaginationControls();
+            
+            // Re-add scroll animations and hover effects for new cards
+            setTimeout(() => {
+                addScrollAnimations();
+                addProjectCardEffects();
+            }, 100);
+        }
+        
+        // Update pagination controls
+        function updatePaginationControls() {
+            const firstBtn = document.getElementById('firstBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const lastBtn = document.getElementById('lastBtn');
+            const paginationInfo = document.getElementById('paginationInfo');
+            
+            if (!firstBtn || !prevBtn || !nextBtn || !lastBtn || !paginationInfo) return;
+            
+            // Enable/disable buttons
+            firstBtn.disabled = currentPage === 1;
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+            lastBtn.disabled = currentPage === totalPages;
+            
+            // Update info text
+            const startItem = (currentPage - 1) * projectsPerPage + 1;
+            const endItem = Math.min(currentPage * projectsPerPage, filteredProjects.length);
+            paginationInfo.textContent = `Showing ${startItem}-${endItem} of ${filteredProjects.length} projects`;
+            
+            // Update page numbers
+            updatePageNumbers();
+        }
+        
+        // Update page numbers
+        function updatePageNumbers() {
+            const paginationNumbers = document.getElementById('paginationNumbers');
+            if (!paginationNumbers) return;
+            
+            let numbersHTML = '';
+            
+            // Calculate which page numbers to show
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, currentPage + 2);
+            
+            // Show first page if not in range
+            if (startPage > 1) {
+                numbersHTML += `<button class="page-number" onclick="goToPage(1)">1</button>`;
+                if (startPage > 2) {
+                    numbersHTML += `<span class="page-ellipsis">...</span>`;
+                }
+            }
+            
+            // Show page numbers in range
+            for (let i = startPage; i <= endPage; i++) {
+                const activeClass = i === currentPage ? 'active' : '';
+                numbersHTML += `<button class="page-number ${activeClass}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            
+            // Show last page if not in range
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) {
+                    numbersHTML += `<span class="page-ellipsis">...</span>`;
+                }
+                numbersHTML += `<button class="page-number" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+            }
+            
+            paginationNumbers.innerHTML = numbersHTML;
+        }
+        
+        // Go to specific page
+        function goToPage(page) {
+            if (page < 1 || page > totalPages || page === currentPage) return;
+            
+            // Add animation effect
+            const projectsGrid = document.getElementById('allProjectsGrid');
+            projectsGrid.style.opacity = '0.5';
+            projectsGrid.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                displayProjectsPage(page);
+                projectsGrid.style.opacity = '1';
+                projectsGrid.style.transform = 'translateY(0)';
+                
+                // Scroll to top of projects section
+                document.getElementById('all-projects').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 200);
+        }
+        
+        // Filter function that works with pagination
+        function filterProjectsWithPagination(category) {
+            // Filter projects based on category
+            if (category === 'all') {
+                filteredProjects = [...allProjectsData];
+            } else {
+                filteredProjects = allProjectsData.filter(project => project.category === category);
+            }
+            
+            // If there's an active search, apply it to the filtered results
+            const searchInput = document.getElementById('projectSearch');
+            if (searchInput && searchInput.value.trim()) {
+                const searchTerm = searchInput.value.toLowerCase();
+                filteredProjects = filteredProjects.filter(project => {
+                    const title = project.title.toLowerCase();
+                    const description = project.description.toLowerCase();
+                    const techStack = project.techStack.join(' ').toLowerCase();
+                    
+                    return title.includes(searchTerm) || description.includes(searchTerm) || techStack.includes(searchTerm);
+                });
+            }
+            
+            // Reset to page 1 and display
+            displayProjectsPage(1);
+        }
+        
+        // Search function that works with pagination
+        function searchProjectsWithPagination(query) {
+            const searchTerm = query.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+            
+            // Start with filtered projects based on current category
+            let baseProjects = activeFilter === 'all' ? allProjectsData : allProjectsData.filter(project => project.category === activeFilter);
+            
+            if (!query.trim()) {
+                // If no search query, show all projects from current filter
+                filteredProjects = baseProjects;
+            } else {
+                // Search within the current filter category
+                filteredProjects = baseProjects.filter(project => {
+                    const title = project.title.toLowerCase();
+                    const description = project.description.toLowerCase();
+                    const techStack = project.techStack.join(' ').toLowerCase();
+                    
+                    return title.includes(searchTerm) || description.includes(searchTerm) || techStack.includes(searchTerm);
+                });
+            }
+            
+            // Reset to page 1 and display
+            displayProjectsPage(1);
+        }
+
         
         // Add scroll animations for project cards
         function addScrollAnimations() {
