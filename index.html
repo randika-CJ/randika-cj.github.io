@@ -623,7 +623,14 @@
             transform: scale(1.05) translateY(-2px);
             box-shadow: 0 5px 15px rgba(88, 166, 255, 0.3);
         }
-        
+        .tech-tag.tech-tag-hover {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.2)) !important;
+            color: #8B5CF6 !important;
+            transform: scale(1.05) translateY(-2px) !important;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3) !important;
+            border: 2px solid #8B5CF6 !important;
+            backdrop-filter: blur(10px) !important;
+        }
         .tech-tag:hover::before {
             left: 100%;
         }
@@ -2650,11 +2657,21 @@
                     }
                     
                     // Animate tech tags
+                    /*
                     const techTags = this.querySelectorAll('.tech-tag');
                     techTags.forEach((tag, index) => {
                         setTimeout(() => {
                             tag.style.transform = 'scale(1.05)';
                             tag.style.background = 'linear-gradient(135deg, #58A6FF, #4ECDC4)';
+                        }, index * 50);
+                    });
+                    */
+                    // Animate tech tags
+                    const techTags = this.querySelectorAll('.tech-tag');
+                    techTags.forEach((tag, index) => {
+                        setTimeout(() => {
+                            tag.style.transform = 'scale(1.05)';
+                            tag.classList.add('tech-tag-hover'); // Use CSS class instead
                         }, index * 50);
                     });
                 });
