@@ -1621,59 +1621,89 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                position: relative;
             }
         
             .nav-links {
-                position: fixed;
-                left: -100%;
-                top: 70px; /* Adjust based on your header height */
-                flex-direction: column;
-                background-color: var(--bg-color, #0a0a0a);
-                width: 100%;
-                text-align: center;
-                transition: left 0.3s ease;
-                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.5);
-                padding: 2rem 0;
-                height: calc(100vh - 70px);
-                overflow-y: auto;
-                z-index: 1000;
-                border-top: 1px solid var(--border-color, #333);
+                position: fixed !important;
+                left: -100% !important;
+                top: 0 !important;
+                flex-direction: column !important;
+                background-color: var(--bg-color, #0a0a0a) !important;
+                width: 100% !important;
+                height: 100vh !important;
+                text-align: center !important;
+                transition: left 0.3s ease !important;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.5) !important;
+                padding: 4rem 2rem 2rem !important;
+                overflow-y: auto !important;
+                z-index: 1000 !important;
+                justify-content: flex-start !important;
+                align-items: center !important;
+                margin: 0 !important;
+                list-style: none !important;
             }
         
             .nav-links.active {
-                left: 0;
+                left: 0 !important;
             }
         
             .nav-links li {
-                margin: 1rem 0;
-                width: 100%;
+                margin: 1rem 0 !important;
+                width: 100% !important;
+                max-width: 300px !important;
             }
         
             .nav-links a {
-                padding: 1rem 2rem;
-                display: block;
-                width: 100%;
-                font-size: 1.1rem;
-                border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+                padding: 1rem 2rem !important;
+                display: block !important;
+                width: 100% !important;
+                font-size: 1.1rem !important;
+                border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.1)) !important;
+                color: var(--text-color, #ffffff) !important;
+                text-decoration: none !important;
+                transition: all 0.3s ease !important;
+                border-radius: 8px !important;
+            }
+
+            .nav-links a:hover {
+                background-color: var(--accent-color, #64b5f6) !important;
+                color: var(--bg-color, #0a0a0a) !important;
             }
         
             .theme-toggle {
-                margin: 1rem auto !important;
+                margin: 2rem auto !important;
                 padding: 0.75rem 1.5rem !important;
                 font-size: 1rem !important;
                 width: auto !important;
+                display: flex !important;
+                align-items: center !important;
+                gap: 0.5rem !important;
+            }
+
+            /* Hide desktop nav on mobile */
+            .nav-links:not(.active) {
+                display: none !important;
+            }
+
+            /* Show mobile nav when active */
+            .nav-links.active {
                 display: flex !important;
             }
         }
         
         @media (max-width: 480px) {
             .nav-links {
-                top: 60px;
-                height: calc(100vh - 60px);
+                padding: 3rem 1rem 1rem !important;
             }
             
             .logo {
                 font-size: 1.2rem;
+            }
+
+            .nav-links a {
+                font-size: 1rem !important;
+                padding: 0.8rem 1rem !important;
             }
         }
     </style>
