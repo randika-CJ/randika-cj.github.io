@@ -622,8 +622,16 @@
             color: white;
             transform: scale(1.05) translateY(-2px);
             box-shadow: 0 5px 15px rgba(88, 166, 255, 0.3);
+            border-color: var(--primary-color); /* Add this line */
         }
-        
+
+        .tech-tag.tech-tag-hover {
+            background: linear-gradient(135deg, #58A6FF, #4ECDC4) !important;
+            color: white !important;
+            transform: scale(1.05) translateY(-2px) !important;
+            box-shadow: 0 5px 15px rgba(88, 166, 255, 0.4) !important;
+        }
+
         .tech-tag:hover::before {
             left: 100%;
         }
@@ -1534,7 +1542,7 @@
                             <div class="status-indicator"></div>
                             <span>In Progress</span>
                         </div>
-                        <h3 class="project-title">Structure-Informed Super Resolution</h3>
+                        <h3 class="project-title">Structure-Informed Super Resolution Technique for Scientific Imaging</h3>
                         <div class="project-subtitle">
                             <span>Final Year Research Project</span>
                             <span class="project-duration">Jun 2024 - Present</span>
@@ -1544,9 +1552,10 @@
                         <div class="project-team">
                             <div class="team-avatars">
                                 <div class="team-avatar">R</div>
-                                <div class="team-avatar">S</div>
+                                <div class="team-avatar">O</div>
+                                <div class="team-avatar">G</div>
                             </div>
-                            <span>Team of 2 • Research</span>
+                            <span>Team of 3 • Principal Researcher</span>
                         </div>
                         
                         <p class="project-description">
@@ -1620,10 +1629,8 @@
                         <div class="project-team">
                             <div class="team-avatars">
                                 <div class="team-avatar">R</div>
-                                <div class="team-avatar">T</div>
-                                <div class="team-avatar">M</div>
                             </div>
-                            <span>Team of 3 • Full-Stack</span>
+                            <span>Solo Project • Data-Scientist</span>
                         </div>
                         
                         <p class="project-description">
@@ -1691,7 +1698,7 @@
                         <h3 class="project-title">Music Genre Classification Engine</h3>
                         <div class="project-subtitle">
                             <span>Big Data ML Pipeline</span>
-                            <span class="project-duration">Nov 2024</span>
+                            <span class="project-duration">Mar 2025 - Apr 2025</span>
                         </div>
                     </div>
                     <div class="project-content">
@@ -2051,7 +2058,7 @@
         // Enhanced All Projects Data with additional metadata
         const allProjectsData = [
             {
-                title: "Structure-Informed Super Resolution",
+                title: "Structure-Informed Super Resolution Technique for Scientific Imaging",
                 subtitle: "Final Year Research Project",
                 category: "research",
                 status: "ongoing",
@@ -2650,11 +2657,21 @@
                     }
                     
                     // Animate tech tags
+                    /*
                     const techTags = this.querySelectorAll('.tech-tag');
                     techTags.forEach((tag, index) => {
                         setTimeout(() => {
                             tag.style.transform = 'scale(1.05)';
                             tag.style.background = 'linear-gradient(135deg, #58A6FF, #4ECDC4)';
+                        }, index * 50);
+                    });
+                    */
+                    // Animate tech tags
+                    const techTags = this.querySelectorAll('.tech-tag');
+                    techTags.forEach((tag, index) => {
+                        setTimeout(() => {
+                            tag.style.transform = 'scale(1.05)';
+                            tag.classList.add('tech-tag-hover'); // Use CSS class instead
                         }, index * 50);
                     });
                 });
@@ -2664,10 +2681,18 @@
                     this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
                     
                     // Reset tech tags
+                    /*
                     const techTags = this.querySelectorAll('.tech-tag');
                     techTags.forEach(tag => {
                         tag.style.transform = 'scale(1)';
                         tag.style.background = '';
+                    });
+                    */
+                    // Reset tech tags
+                    const techTags = this.querySelectorAll('.tech-tag');
+                    techTags.forEach(tag => {
+                        tag.style.transform = 'scale(1)';
+                        tag.classList.remove('tech-tag-hover'); // Remove the class
                     });
                 });
         
